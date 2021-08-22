@@ -9,8 +9,8 @@ public class App {
         dog[0] = new Dog();
         dog[1] = new Dog();
         dog[0].setName("Henry");
-        dog[0].setHeight(0.45);
-        dog[0].setWeight(8.9);
+        dog[0].setHeight(0.48);
+        dog[0].setWeight(8.8);
 
         dog[1].setName("Murmel");
         System.out.println(dog[0].getName());
