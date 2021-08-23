@@ -1,35 +1,54 @@
 package de.wanner2tec.bmi;
 
 import de.wanner2tec.bmi.controller.BMICalc;
+import de.wanner2tec.bmi.model.Animal;
 import de.wanner2tec.bmi.model.Dog;
+import de.wanner2tec.bmi.model.Fish;
 
 public class App {
     public static void main(String[] args) {
-        Dog[] dog = new Dog[2];
-        dog[0] = new Dog();
-        dog[1] = new Dog();
-        dog[0].setName("Henry");
-        dog[0].setHeight(0.45);
-        dog[0].setWeight(8.9);
-        dog[0].eat();
-        dog[0].eat();
-        dog[0].eat();
+        Animal[] animal = new Animal[3];
 
-        dog[1].setName("Murmel");
-        dog[1].setHeight(0.22);
-        dog[1].setWeight(4.8);
-        dog[1].eat();
-        dog[1].eat();
-        dog[1].play();
-        dog[1].play();
+        animal[0] = new Dog("Henry", 0.45, 8.9);
+        animal[0].eat();
+        animal[0].eat();
+        animal[0].eat();
 
-        System.out.println(dog[0].getName());
-        System.out.println(dog[0].getWeight());
-        System.out.println(dog[0].getHeight());
-        System.out.println(dog[1].getName());
+        animal[1] = new Dog("Murmel", 0.22, 4.8);
+        animal[1].eat();
+        animal[1].eat();
+        ((Dog)animal[1]).play();
+        ((Dog)animal[1]).play();
 
-        BMICalc bmiCalc = new BMICalc();
-        double result = bmiCalc.calc(dog[0]);
-        System.out.println(result);
+        System.out.println(animal[0].getName());
+        System.out.println(animal[0].getWeight());
+        System.out.println(animal[0].getHeight());
+        System.out.println(animal[1].getName());
+
+        animal[2] = new Fish("Peter", 0.1, 0.005);
+        animal[2].setName("Peter");
+        animal[2].setHeight(01);
+        animal[2].setWeight(0.005);
+        animal[2].eat();
+        animal[2].eat();
+        System.out.println(animal[2].getName());
+        System.out.println(animal[2].getWeight());
+        System.out.println(animal[2].getHeight());
+
+        double bmi0 = BMICalc.calc(animal[0]);
+        System.out.println(bmi0);
+        System.out.println(
+                bmi0 >= BMICalc.BMI_MAX ? "Übergewichtig" :
+                        (bmi0 <= BMICalc.BMI_MIN ? "Untergewichtig" :
+                            "Normalgewichtig"
+                        )
+        );
+        double bmi1 = BMICalc.calc(animal[1]);
+        System.out.println(bmi1);
+        double bmi2 = BMICalc.calc(animal[2]);
+        System.out.println(bmi2);
+
+        System.out.println("Amount of calculations " + BMICalc.counter);
+
     }
 }
