@@ -1,32 +1,26 @@
 package de.wanner2tec.bmi.model;
 
-public class  Dog {
-    public double weight;
-    public double height;
-    public String name;
+public class Dog extends Animal {
+    private Ball ball;
 
-    public double getWeight() {
-        return weight;
+    public Ball getBall() {
+        return ball;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
+    public void setBall(Ball ball) {
+        this.ball = ball;
     }
 
-    public double getHeight() {
-        return height;
+    public void eat() {
+        super.weight += 0.1;
     }
 
-    public void setHeight(double height) {
-        this.height = height;
+    public void eat(double amount) {
+        super.weight += amount;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void play() {
+        super.weight -= 0.1;
     }
 }
 

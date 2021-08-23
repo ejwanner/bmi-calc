@@ -11,8 +11,18 @@ public class App {
         dog[0].setName("Henry");
         dog[0].setHeight(0.45);
         dog[0].setWeight(8.9);
+        dog[0].eat();
+        dog[0].eat();
+        dog[0].eat();
 
         dog[1].setName("Murmel");
+        dog[1].setHeight(0.22);
+        dog[1].setWeight(4.8);
+        dog[1].eat();
+        dog[1].eat();
+        dog[1].play();
+        dog[1].play();
+
         System.out.println(dog[0].getName());
         System.out.println(dog[0].getWeight());
         System.out.println(dog[0].getHeight());
