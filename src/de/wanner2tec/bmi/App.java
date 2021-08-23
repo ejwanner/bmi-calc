@@ -26,9 +26,6 @@ public class App {
         System.out.println(animal[1].getName());
 
         animal[2] = new Fish("Peter", 0.1, 0.005);
-        animal[2].setName("Peter");
-        animal[2].setHeight(01);
-        animal[2].setWeight(0.005);
         animal[2].eat();
         animal[2].eat();
         System.out.println(animal[2].getName());
