@@ -5,47 +5,70 @@ import de.wanner2tec.bmi.model.Animal;
 import de.wanner2tec.bmi.model.Dog;
 import de.wanner2tec.bmi.model.Fish;
 
+import java.util.Scanner;
+
 public class App {
+    private Scanner scanner = new Scanner(System.in);
+    private Animal animal;
+    private String[] results = new String[BMICalc.MAX_AMOUNT];
+    private int index = -1;
+
     public static void main(String[] args) {
-        Animal[] animal = new Animal[3];
+        new App();
+    }
 
-        animal[0] = new Dog("Henry", 0.45, 8.9);
-        animal[0].eat();
-        animal[0].eat();
-        animal[0].eat();
+    private App() {
+        while (index < BMICalc.MAX_AMOUNT) {
+            input();
+            process();
+            output();
+        }
+        scanner.close();
+    }
 
-        animal[1] = new Dog("Murmel", 0.22, 4.8);
-        animal[1].eat();
-        animal[1].eat();
-        ((Dog)animal[1]).play();
-        ((Dog)animal[1]).play();
+    private void input() {
+        System.out.print("BMI [1=Dog 2=Fish] > ");
+        int animalTyp = scanner.nextInt();
 
-        System.out.println(animal[0].getName());
-        System.out.println(animal[0].getWeight());
-        System.out.println(animal[0].getHeight());
-        System.out.println(animal[1].getName());
+        if (animalTyp == 1) {
+            animal = new Dog();
+        } else if (animalTyp == 2){
+            animal = new Fish();
+        } else {
+            System.out.println("BMI [Falsche Eingabe!]");
+        }
 
-        animal[2] = new Fish("Peter", 0.1, 0.005);
-        animal[2].eat();
-        animal[2].eat();
-        System.out.println(animal[2].getName());
-        System.out.println(animal[2].getWeight());
-        System.out.println(animal[2].getHeight());
+        if (animal instanceof Dog) {
+            System.out.println("BMI [Dog]");
+        } else if (animal instanceof Fish) {
+            System.out.println("BMI [Fish]");
+        }
 
-        double bmi0 = BMICalc.calc(animal[0]);
-        System.out.println(bmi0);
-        System.out.println(
-                bmi0 >= BMICalc.BMI_MAX ? "Übergewichtig" :
-                        (bmi0 <= BMICalc.BMI_MIN ? "Untergewichtig" :
-                            "Normalgewichtig"
-                        )
-        );
-        double bmi1 = BMICalc.calc(animal[1]);
-        System.out.println(bmi1);
-        double bmi2 = BMICalc.calc(animal[2]);
-        System.out.println(bmi2);
+        System.out.print("BMI [Geben Sie den Namen ein] > ");
+        String name = scanner.next();
+        animal.setName(name);
 
-        System.out.println("Amount of calculations " + BMICalc.counter);
+        System.out.print("BMI [Geben Sie ein Gewicht ein] > ");
+        double weight = scanner.nextDouble();
+        animal.setHeight(weight);
 
+        System.out.print("BMI [Geben Sie die Größe ein] > ");
+        double height = scanner.nextDouble();
+        animal.setWeight(height);
+    }
+
+    private void process() {
+        BMICalc bmiCalc = new BMICalc();
+        results[++index] = bmiCalc.check(animal);
+    }
+
+    private void output() {
+        int i = -1;
+        for (String result : results) {
+            if (++i > index) {
+                break;
+            }
+            System.out.println("BMI [result= " + result + "]");
+        }
     }
 }

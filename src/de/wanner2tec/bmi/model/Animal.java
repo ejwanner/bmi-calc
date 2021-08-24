@@ -1,9 +1,17 @@
 package de.wanner2tec.bmi.model;
 
 public class Animal {
-    protected double weight;
-    private double height;
     private String name;
+    private double weight;
+    private double height;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public double getWeight() {
         return weight;
@@ -19,21 +27,5 @@ public class Animal {
 
     public void setHeight(double height) {
         this.height = height;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void eat() {
-
-    }
-
-    public void eat(double amount) {
-
     }
 }
