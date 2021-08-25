@@ -1,6 +1,8 @@
 package de.wanner2tec.bmi.model;
 
-public class Animal {
+import de.wanner2tec.bmi.controller.BMIBody;
+
+public abstract class Animal implements BMIBody {
     private String name;
     private double weight;
     private double height;
@@ -28,4 +30,7 @@ public class Animal {
     public void setHeight(double height) {
         this.height = height;
     }
+
+    public abstract void eat();
+    public abstract void play();
 }

@@ -1,6 +1,8 @@
 package de.wanner2tec.bmi;
 
+import de.wanner2tec.bmi.controller.BMI;
 import de.wanner2tec.bmi.controller.BMICalc;
+import de.wanner2tec.bmi.controller.BMICalcFabric;
 import de.wanner2tec.bmi.model.Animal;
 import de.wanner2tec.bmi.model.Dog;
 import de.wanner2tec.bmi.model.Fish;
@@ -10,7 +12,7 @@ import java.util.Scanner;
 public class App {
     private Scanner scanner = new Scanner(System.in);
     private Animal animal;
-    private String[] results = new String[BMICalc.MAX_AMOUNT];
+    private String[] results = new String[BMI.MAX_AMOUNT];
     private int index = -1;
 
     public static void main(String[] args) {
@@ -18,10 +20,19 @@ public class App {
     }
 
     private App() {
-        while (index < BMICalc.MAX_AMOUNT) {
-            input();
-            process();
-            output();
+        while (index < BMI.MAX_AMOUNT) {
+            System.out.print("BMI [1=Select Animal 2=Eat 3=Play 4=Calc] > ");
+            int selection = scanner.nextInt();
+            if (selection == 1) {
+                input();
+            } else if (selection == 2) {
+                animal.eat();
+            } else if (selection == 3) {
+                animal.play();
+            } else if (selection == 4) {
+                process();
+                output();
+            }
         }
         scanner.close();
     }
@@ -35,7 +46,7 @@ public class App {
         } else if (animalTyp == 2){
             animal = new Fish();
         } else {
-            System.out.println("BMI [Falsche Eingabe!]");
+            System.out.println("BMI [Falsch Eingabe!]");
         }
 
         if (animal instanceof Dog) {
@@ -58,7 +69,7 @@ public class App {
     }
 
     private void process() {
-        BMICalc bmiCalc = new BMICalc();
+        BMICalc bmiCalc = BMICalcFabric.createInstance();
         results[++index] = bmiCalc.check(animal);
     }
 

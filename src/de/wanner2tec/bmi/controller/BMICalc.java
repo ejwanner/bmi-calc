@@ -1,14 +1,10 @@
 package de.wanner2tec.bmi.controller;
 
-import de.wanner2tec.bmi.model.Animal;
 
-public class BMICalc {
-    public final static double BMI_MAX = 25.0;
-    public final static double BMI_MIN = 18.5;
-    public final static int MAX_AMOUNT = 100;
+public interface BMICalc extends BMI {
 
-    public String check(Animal animal) {
-        double bmi = animal.getWeight() / (animal.getHeight() * animal.getHeight());
+    public default String check(BMIBody bmiBody) {
+        double bmi = bmiBody.getWeight() / (bmiBody.getHeight() * bmiBody.getHeight());
         String result = null;
         if (bmi >= BMI_MAX) {
             result = "Übergewichtig";
@@ -19,5 +15,4 @@ public class BMICalc {
         }
         return result;
     }
-
 }
