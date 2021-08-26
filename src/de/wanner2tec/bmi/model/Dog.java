@@ -4,8 +4,20 @@ import de.wanner2tec.bmi.controller.BMIBody;
 
 public class Dog implements BMIBody {
     private String name;
-    private double weight;
-    private double height;
+    private Double weight;
+    private Double height;
+
+    public Dog(String... varargs) {
+        if (varargs.length >= 1) {
+            this.name = varargs[0];
+            if (varargs.length >= 2) {
+                this.height = Double.parseDouble(varargs[1]);
+                if (varargs.length >= 3) {
+                    this.weight = Double.parseDouble(varargs[2]);
+                }
+            }
+        }
+    }
 
     public String getName() {
         return name;
@@ -15,12 +27,25 @@ public class Dog implements BMIBody {
         this.name = name;
     }
 
-    public double getWeight() {
+    @Override
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(Double weight) throws DogException {
+        if (weight.doubleValue() <= 0) {
+            throw new DogException("Der Hund muss größer als 0.0 Meter sein");
+        }
         this.weight = weight;
+    }
+
+    @Override
+    public Double getHeight() {
+        return height;
+    }
+
+    public void setHeight(Double height) {
+        this.height = height;
     }
 
     @Override
@@ -32,11 +57,4 @@ public class Dog implements BMIBody {
                 '}';
     }
 
-    public double getHeight() {
-        return height;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
-    }
 }
