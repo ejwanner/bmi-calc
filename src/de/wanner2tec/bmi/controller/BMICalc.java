@@ -1,6 +1,5 @@
 package de.wanner2tec.bmi.controller;
 
-
-public interface BMICalc extends BMI {
-    public String check(BMIBody bmiBody);
+public interface BMICalc<U, V> {
+    public U calc(V v);
 }

@@ -1,76 +1,42 @@
 package de.wanner2tec.bmi;
 
-import de.wanner2tec.bmi.controller.BMI;
 import de.wanner2tec.bmi.controller.BMIBody;
 import de.wanner2tec.bmi.controller.BMICalc;
-import de.wanner2tec.bmi.model.Dog;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 public class App {
-    private Scanner scanner = new Scanner(System.in);
-    private Dog dog = new Dog();
-    private String[] results = new String[BMI.MAX_AMOUNT];
-    private int index = -1;
 
     public static void main(String[] args) {
         new App();
     }
 
     private App() {
-        System.out.print("BMI [Geben Sie den Namen ein] > ");
-        String name = scanner.next();
-        dog.setName(name);
-
-        System.out.print("BMI [Geben Sie die Größe ein] > ");
-        double height = scanner.nextDouble();
-        dog.setWeight(height);
-
-        while (index < BMI.MAX_AMOUNT) {
-            System.out.print("BMI [Select Calc End] > ");
-            String selection = scanner.next().toLowerCase();
-            if ("select".equals(selection)) {
-                input();
-            } else if ("calc".equals(selection)) {
-                output();
-            } else if ("end".equals(selection)) {
-                System.out.println("Ende Gelände");
-            }
-        }
-        scanner.close();
-    }
-
-    private void input() {
-        System.out.print("BMI [Geben Sie ein Gewicht ein] > ");
-        double weight = scanner.nextDouble();
-        dog.setHeight(weight);
-
-        BMICalc bmiCalc = new BMICalc() {
-            public String check(BMIBody bmiBody) {
-                double bmi = bmiBody.getWeight() / (bmiBody.getHeight() * bmiBody.getHeight());
-                String result = null;
-                if (bmi >= BMI_MAX) {
-                    result = "Übergewichtig";
-                } else if (bmi <= BMI_MIN) {
-                    result = "Untergewichtig";
-                } else {
-                    result = "Normal";
-                }
-                return result;
+        BMICalc<Double, BMIBody<Double, Double>> calcer = new BMICalc<Double, BMIBody<Double, Double>>() {
+            @Override
+            public Double calc(BMIBody<Double, Double> v) {
+                return v.getF() / (v.getE() * v.getE());
             }
         };
-        results[++index] = bmiCalc.check(dog);
-    }
+        BMIBody<Double, Double> body = new BMIBody<>();
 
-    private void output() {
-        System.out.println(dog);
-        int i = -1;
-        for (String result : results) {
-            if (++i > index) {
-                break;
-            }
-            System.out.println("BMI [result= " + result + "]");
+        try(Scanner scanner = new Scanner(System.in)) {
+            System.out.print("Height: ");
+            body.setE(scanner.nextDouble());
+
+            System.out.print("Weight: ");
+            body.setF(scanner.nextDouble());
+
+
+            System.out.printf("BMI: %.1f", calcer.calc(body));
         }
     }
+
+    public static <U> void giveAll(U... u) {
+        for(U element: u) {
+            System.out.println(element);
+        }
+    }
+
+
 }
